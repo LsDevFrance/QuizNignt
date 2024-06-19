@@ -1,0 +1,93 @@
+Bien sûr, voici votre message corrigé pour Discord en français :
+
+---
+
+Voici les logs retournés dans la console :
+```
+Read more at https://errors.authjs.dev/#credentialssignin
+[auth][error] CallbackRouteError: Read more at https://errors.authjs.dev#callbackrouteerror
+[auth][cause]: Error
+    at Module.callback (webpack-internal:///(action-browser)/./node_modules/@auth/core/lib/actions/callback/index.js:226:23)
+    at async AuthInternal (webpack-internal:///(action-browser)/./node_modules/@auth/core/lib/index.js:66:24)
+    at async Auth (webpack-internal:///(action-browser)/./node_modules/@auth/core/index.js:126:34)
+    at async signIn (webpack-internal:///(action-browser)/./node_modules/next-auth/lib/actions.js:51:17)
+    at async $$ACTION_0 (webpack-internal:///(action-browser)/./app/(marketing)/auth/login/login.action.ts:37:9)
+    at async eval (webpack-internal:///(action-browser)/./src/utils/safe-action.ts:18:20)
+    at async /Users/jack/Documents/Projet code/LearnNest/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:418
+    
+[auth][details]: {
+  "provider": "credentials"
+}
+```
+
+---
+
+Cela devrait aider les autres développeurs à comprendre votre problème et à vous fournir l'assistance nécessaire.
+
+Voici votre texte corrigé :
+
+---
+
+L'erreur se produit quand je soumets un utilisateur qui n'existe pas. Cela devrait normalement me retourner l'erreur "Invalid credentials" mais cela me retourne "Callback route error". Voici mon server action pour le login :
+
+```javascript
+export const loginAction = action(LoginSchema, async (values) => {
+  const { email, password } = values;
+  try {
+    await signIn("credentials", {
+      email,
+      password,
+      redirectTo: DEFAULT_LOGIN_REDIRECT,
+    });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          throw new ActionError("Invalid credentials");
+        case "CallbackRouteError":
+          throw new ActionError("Callback route error");
+        default:
+          throw new ActionError(`Something went wrong ${error.type}`);
+      }
+    }
+    throw error;
+  }
+
+  return { success: true, message: "Email sent!" };
+});
+```
+
+---
+
+Cela devrait clarifier votre problème et aider à obtenir l'assistance nécessaire.
+
+
+Voici la version corrigée de votre message :
+
+---
+
+Après avoir mené mon enquête, l'erreur "callback route error" se produit uniquement si l'utilisateur n'est pas validé. Par contre, s'il est validé, il y a une erreur dans la redirection.
+
+```plaintext
+Error: NEXT_REDIRECT
+    at getRedirectError (webpack-internal:///(action-browser)/./node_modules/next/dist/client/components/redirect.js:49:19)
+    at redirect (webpack-internal:///(action-browser)/./node_modules/next/dist/client/components/redirect.js:60:11)
+    at $$ACTION_0 (webpack-internal:///(action-browser)/./app/(marketing)/auth/login/login.action.ts:44:66)
+    at async eval (webpack-internal:///(action-browser)/./src/utils/safe-action.ts:18:20)
+    at async /Users/lironsaiman/Documents/Projet code/LearnNest/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:418
+    {
+  digest: 'NEXT_REDIRECT;replace;/dashboard;303;',
+  mutableCookies: p {
+    _parsed: Map(3) {
+      'authjs.csrf-token' => [Object],
+      'authjs.callback-url' => [Object],
+      'authjs.session-token' => [Object]
+    },
+    _headers: Headers {
+      'set-cookie': 'authjs.csrf-token=74bfd76f376a66e2b60b9c0b9db8919d696596e6abab905234ee62ec5ff33aec%
+    }
+  }
+}
+```
+(J'ai etais obliger )
+---
