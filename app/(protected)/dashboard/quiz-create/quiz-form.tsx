@@ -24,11 +24,13 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Typography } from "@/components/ui/typography";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { QuizSchema, QuizType } from "./quiz.schema";
 
 export default function QuizForm({ user_id }: { user_id: string }) {
+  const router = useRouter();
   const mutation = useMutation(async (values: QuizType) => {
     const result = await addQuizAction(values, user_id);
     if (!result.success) {
@@ -37,6 +39,10 @@ export default function QuizForm({ user_id }: { user_id: string }) {
       return result.message;
     }
   });
+
+  if (mutation.isSuccess) {
+    router.refresh();
+  }
 
   const form = useForm<QuizType>({
     resolver: zodResolver(QuizSchema),

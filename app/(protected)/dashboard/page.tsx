@@ -32,6 +32,7 @@ export default async function DashboardPage() {
       image: true,
     },
   });
+
   return (
     <Layout>
       <LayoutHeader>

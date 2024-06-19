@@ -2,9 +2,7 @@
 import bcrypt from "bcryptjs";
 
 import { signIn } from "@/auth";
-import { sendVerificationEmail } from "@/lib/mail";
 import { prisma } from "@/lib/prisma";
-import { generateVerificationToken } from "@/lib/token";
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import {
@@ -33,20 +31,6 @@ export const loginAction = async (values: LoginFormType) => {
     }
   }
 
-  if (!existingUser.emailVerified) {
-    const verificationToken = await generateVerificationToken(
-      existingUser.email
-    );
-    try {
-      await sendVerificationEmail(
-        verificationToken.email,
-        verificationToken.token
-      );
-    } catch {
-      return { success: false, message: "Error sent email confirmation!" };
-    }
-    return { success: true, message: "Confirmation email sent !" };
-  }
   try {
     await signIn("credentials", {
       email,

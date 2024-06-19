@@ -1,8 +1,6 @@
 "use server";
 
-import { sendVerificationEmail } from "@/lib/mail";
 import { prisma } from "@/lib/prisma";
-import { generateVerificationToken } from "@/lib/token";
 import { action, ActionError } from "@/utils/safe-action";
 import bcrypt from "bcryptjs";
 import { InfoRegisterSchema } from "../../app/(marketing)/auth/register/register.schema";
@@ -29,16 +27,5 @@ export const registerAction = action(InfoRegisterSchema, async (values) => {
     },
   });
 
-  const verificationToken = await generateVerificationToken(email);
-  console.log("verificationToken", verificationToken);
-  try {
-    await sendVerificationEmail(
-      verificationToken.email,
-      verificationToken.token
-    );
-  } catch {
-    return { success: false, message: "Error sent email confirmation!" };
-  }
-
-  return { success: true, message: "Confirmation email sent!" };
+  return { success: true, message: "Account created successfully!" };
 });
