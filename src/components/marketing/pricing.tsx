@@ -14,6 +14,7 @@ export default async function QuizSectionCards() {
       image: true,
     },
   });
+  console.log(quiz);
   return (
     <>
       {/* Pricing */}
