@@ -1,4 +1,5 @@
 import { getQuizAction } from "@/action/get-quiz.action";
+import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card, CardContent, CardHeader } from "../ui/card";
@@ -6,6 +7,9 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 export default async function QuizSectionCards() {
   try {
     const quiz = await getQuizAction();
+    if (quiz) {
+      revalidatePath("/");
+    }
 
     return (
       <>
