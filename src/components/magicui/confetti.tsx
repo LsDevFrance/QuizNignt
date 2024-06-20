@@ -95,6 +95,8 @@ const Confetti = forwardRef<ConfettiRef, Props>((props, ref) => {
   );
 });
 
+Confetti.displayName = "Confetti";
+
 interface ConfettiButtonProps extends ButtonProps {
   options?: ConfettiOptions &
     ConfettiGlobalOptions & { canvas?: HTMLCanvasElement };
@@ -121,6 +123,8 @@ function ConfettiButton({ options, children, ...props }: ConfettiButtonProps) {
     </Button>
   );
 }
+
+ConfettiButton.displayName = "ConfettiButton";
 
 export { Confetti, ConfettiButton };
 

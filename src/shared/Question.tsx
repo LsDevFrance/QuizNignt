@@ -5,26 +5,40 @@ import { Separator } from "@/components/ui/separator";
 import { CheckCircle, CircleX } from "lucide-react";
 import { useState } from "react";
 
-const Question = (props) => {
-  const [answer, setAnswer] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+type QuestionProps = {
+  data: {
+    text: string;
+    options: string[];
+    answer: string | null;
+  };
+  save: (isCorrect: boolean) => void;
+};
+
+const Question = (props: QuestionProps) => {
+  const [answer, setAnswer] = useState<string>("");
+  const [submitted, setSubmitted] = useState<boolean>(false);
+
   const submitAnswer = () => {
     setSubmitted(true);
   };
+
   const nextQuestion = () => {
-    props.save(answer == props.data.answer);
+    props.save(answer === props.data.answer);
   };
-  const checkAnswer = (val) => {
-    if (val == answer && val == props.data.answer) {
+
+  const checkAnswer = (val: string): boolean | undefined => {
+    if (val === answer && val === props.data.answer) {
       return true;
     }
-    if (val == answer && val != props.data.answer) {
+    if (val === answer && val !== props.data.answer) {
       return false;
     }
-    if (val != answer && val == props.data.answer) {
+    if (val !== answer && val === props.data.answer) {
       return true;
     }
+    return undefined;
   };
+
   return (
     <div className="flex flex-col">
       <Label className="text-3xl mb-4" htmlFor="">
@@ -35,15 +49,15 @@ const Question = (props) => {
           <div
             key={i}
             className={`${
-              answer == x ? "border-[#aaa]" : ""
+              answer === x ? "border-[#aaa]" : ""
             } border px-2 py-2 mt-1 mb-1 rounded flex justify-between items-center cursor-pointer`}
             onClick={() => (submitted ? "" : setAnswer(x))}
           >
             <span>{x}</span>
-            {submitted && checkAnswer(x) == true && (
+            {submitted && checkAnswer(x) === true && (
               <CheckCircle size={20} color="#0cde0c"></CheckCircle>
             )}
-            {submitted && checkAnswer(x) == false && (
+            {submitted && checkAnswer(x) === false && (
               <CircleX size={20} color="#de3c3c"></CircleX>
             )}
           </div>
@@ -51,11 +65,11 @@ const Question = (props) => {
       })}
       <Separator className="my-2" />
       {submitted ? (
-        <Button className="mt-1" onClick={() => nextQuestion()}>
+        <Button className="mt-1" onClick={nextQuestion}>
           Next
         </Button>
       ) : (
-        <Button className="mt-1" onClick={() => submitAnswer()}>
+        <Button className="mt-1" onClick={submitAnswer}>
           Submit
         </Button>
       )}

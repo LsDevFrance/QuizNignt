@@ -17,6 +17,11 @@ type QuizType = {
   answer: string | null;
 }[];
 
+type AnswerType = {
+  question: string;
+  answer: boolean;
+};
+
 export default function QuizComponent({ quiz }: { quiz: QuizType }) {
   const confettiOptions = {
     force: 0.9,
@@ -24,13 +29,13 @@ export default function QuizComponent({ quiz }: { quiz: QuizType }) {
     particleCount: 100,
     width: 800,
   };
-  const [question, setQuestion] = useState(1);
-  const [answers, setAnswers] = useState([]);
-  const [quizdone, setQuizdone] = useState(false);
-  const [score, setScore] = useState(0);
+  const [question, setQuestion] = useState<number>(1);
+  const [answers, setAnswers] = useState<AnswerType[]>([]);
+  const [quizdone, setQuizdone] = useState<boolean>(false);
+  const [score, setScore] = useState<number>(0);
 
-  const saveAnswer = (e: string, q: string) => {
-    const newAnswers = answers;
+  const saveAnswer = (e: boolean, q: string) => {
+    const newAnswers = [...answers];
     newAnswers.push({
       question: q,
       answer: e,
@@ -42,10 +47,11 @@ export default function QuizComponent({ quiz }: { quiz: QuizType }) {
     if (question < quiz.length) {
       setQuestion(question + 1);
     }
-    if (question == quiz.length) {
+    if (question === quiz.length) {
       setQuizdone(true);
     }
   };
+
   return (
     <section className="h-screen flex items-center justify-center">
       <Card>
@@ -66,24 +72,25 @@ export default function QuizComponent({ quiz }: { quiz: QuizType }) {
           <div className="w-[400px]">
             {!quizdone &&
               quiz.map((x, i) => {
-                if (i + 1 == question) {
+                if (i + 1 === question) {
                   return (
                     <Question
                       key={i}
                       data={x}
-                      save={(e) => saveAnswer(e, i + 1)}
-                    ></Question>
+                      save={(e: boolean) => saveAnswer(e, (i + 1).toString())}
+                    />
                   );
                 }
+                return null;
               })}
 
             {quizdone && (
               <div className="flex flex-col items-center relative">
                 <Label className="text-3xl">Quiz Result</Label>
                 <Separator className="my-2" />
-                <Confetti className="absolute inset-" {...confettiOptions} />
+                <Confetti className="absolute inset-0" {...confettiOptions} />
                 <span className="text-2xl">
-                  {score}/{quiz.length} Questions are correct !
+                  {score}/{quiz.length} Questions are correct!
                 </span>
                 <NumberTicker
                   value={score * 100}
