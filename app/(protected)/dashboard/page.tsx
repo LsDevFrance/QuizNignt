@@ -70,7 +70,7 @@ export default async function DashboardPage() {
                         <Typography
                           as={Link}
                           variant="large"
-                          href={`/admin/courses/${quiz.id}`}
+                          href={`/quiz/?quizId=${quiz.id}`}
                         >
                           {quiz.title}
                         </Typography>

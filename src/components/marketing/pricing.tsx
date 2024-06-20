@@ -1,9 +1,12 @@
 import { prisma } from "@/lib/prisma";
+
+import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card, CardContent, CardHeader } from "../ui/card";
 
 export default async function QuizSectionCards() {
   const quiz = await prisma.quiz.findMany({
+    take: 12,
     select: {
       id: true,
       title: true,
@@ -29,7 +32,7 @@ export default async function QuizSectionCards() {
         </div>
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {quiz.map((quiz) => (
-            <Card>
+            <Card key={quiz.id}>
               <CardHeader>
                 <Avatar className="rounded w-full h-40 object-cover">
                   <AvatarFallback className="rounded">
@@ -41,7 +44,12 @@ export default async function QuizSectionCards() {
                 </Avatar>
               </CardHeader>
               <CardContent>
-                <h3 className="text-lg font-semibold">{quiz.title}</h3>
+                <Link
+                  className="text-lg font-semibold"
+                  href={`/quiz/?quizId=${quiz.id}`}
+                >
+                  {quiz.title}
+                </Link>
                 <p className="text-muted-foreground">{quiz.description}</p>
               </CardContent>
             </Card>
