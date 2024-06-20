@@ -96,6 +96,7 @@ export default function QuizForm({ user_id }: { user_id: string }) {
                       disabled={mutation.isLoading}
                       type="text"
                       placeholder="Quiz Title"
+                      required
                     />
                   </FormControl>
                   <FormMessage />
@@ -114,6 +115,7 @@ export default function QuizForm({ user_id }: { user_id: string }) {
                       disabled={mutation.isLoading}
                       type="text"
                       placeholder="Quiz Description"
+                      required
                     />
                   </FormControl>
                   <FormMessage />
@@ -155,6 +157,7 @@ export default function QuizForm({ user_id }: { user_id: string }) {
                         disabled={mutation.isLoading}
                         type="text"
                         placeholder="Question Title"
+                        required
                       />
                     </FormControl>
                     <FormMessage />

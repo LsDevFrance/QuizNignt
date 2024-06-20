@@ -9,9 +9,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Bell, HomeIcon, Menu, SearchIcon } from "lucide-react";
+import { Bell, HomeIcon, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -101,18 +100,7 @@ export default async function DashboardLayout({
       <div className="flex flex-col">
         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
           <MobileNav style={style} styleActive={styleActive} />
-          <div className="w-full flex-1">
-            <form>
-              <div className="relative flex items-center">
-                <SearchIcon className="hrefp-2.5 absolute left-2.5 size-4 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder="Search my books..."
-                  className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
-                />
-              </div>
-            </form>
-          </div>
+
           <Button variant="outline" size="icon" className="ml-auto size-8">
             <Bell className="size-4" />
             <span className="sr-only">Toggle notifications</span>
