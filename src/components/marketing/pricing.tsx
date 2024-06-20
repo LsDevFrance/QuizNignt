@@ -1,19 +1,11 @@
-import { prisma } from "@/lib/prisma";
+import { getQuizAction } from "@/action/get-quiz.action";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card, CardContent, CardHeader } from "../ui/card";
 
 export default async function QuizSectionCards() {
   try {
-    const quiz = await prisma.quiz.findMany({
-      take: 12,
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        image: true,
-      },
-    });
+    const quiz = await getQuizAction();
 
     return (
       <>
