@@ -30,7 +30,7 @@ export default function QuizComponent({ quiz }: { quiz: QuizType }) {
   const [score, setScore] = useState(0);
 
   const saveAnswer = (e: string, q: string) => {
-    let newAnswers = answers;
+    const newAnswers = answers;
     newAnswers.push({
       question: q,
       answer: e,
