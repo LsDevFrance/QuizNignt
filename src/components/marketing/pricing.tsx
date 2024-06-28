@@ -22,7 +22,8 @@ export default async function QuizSectionCards() {
               Quiz disponible pour tous
             </h2>
             <p className="mt-1 text-muted-foreground">
-              Whatever your status, our offers evolve according to your needs.
+              Testez vos connaissances avec notre quiz accessible à tous les
+              niveaux !
             </p>
           </div>
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
