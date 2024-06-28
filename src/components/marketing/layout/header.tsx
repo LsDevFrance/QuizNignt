@@ -5,39 +5,7 @@ import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "../../ui/sheet";
 
 const LinkNavigation = () => {
-  return (
-    <>
-      <li>
-        <a href="#" className="text-foreground/50 hover:text-foreground">
-          Features
-        </a>
-      </li>
-
-      <li>
-        <a
-          href="#princing"
-          className="text-foreground/50 hover:text-foreground"
-        >
-          {" "}
-          Pricing
-        </a>
-      </li>
-
-      <li>
-        <a href="#" className="text-foreground/50 hover:text-foreground">
-          {" "}
-          FAQ
-        </a>
-      </li>
-
-      <li>
-        <a href="#" className="text-foreground/50 hover:text-foreground">
-          {" "}
-          Blog
-        </a>
-      </li>
-    </>
-  );
+  return <></>;
 };
 
 const NavigationResponsive = () => {
@@ -84,7 +52,7 @@ export default function Header() {
               <Link href="/auth/login">Login</Link>
             </div>
 
-            <NavigationResponsive />
+            {/* <NavigationResponsive /> */}
           </div>
         </div>
       </div>

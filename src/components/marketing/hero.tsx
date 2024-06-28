@@ -6,7 +6,7 @@ import { buttonVariants } from "../ui/button";
 
 export default function HeroSection() {
   return (
-    <section className="mx-auto flex h-screen  max-w-screen-xl  items-center p-10 ">
+    <section className="mx-auto flex h-screen  max-w-screen-xl  items-center p-10 pt-40 ">
       <div className="grid grid-cols-2 max-lg:grid-cols-1 items-center">
         <div>
           <BlurIn
